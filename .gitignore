@@ -1,11 +1,9 @@
 .idea
 .php_cs
-.php_cs.cache
-.phpunit.result.cache
-build
+composer.phar
 composer.lock
 coverage
-docs
-phpunit.xml
-psalm.xml
+node_modules
+package-lock.json
 vendor
+*.cache
