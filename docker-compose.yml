@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  php:
+    image: ambientum/php:7.4-nginx
+    container_name: staff-booking-php
+    volumes:
+      - .:/var/www/app
+
+  node:
+    image: node:12
+    container_name: staff-booking-node
+    working_dir: /var/www/app
+    volumes:
+      - /var/www/app/node_modules
+      - ./:/var/www/app
+    tty: true
