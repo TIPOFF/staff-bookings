@@ -15,6 +15,15 @@
         "vue"
     ],
     "rules": {
-        "import/no-extraneous-dependencies": "warn"
+        "import/no-extraneous-dependencies": "warn",
+        "no-undef": "warn",
+        "import/extensions": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".vue"]
+            }
+        }
     }
 }
