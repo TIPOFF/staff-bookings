@@ -171,8 +171,8 @@ export default {
             type: String,
             required: true,
         },
-        locationSlug: {
-            type: String,
+        location: {
+            type: Object,
             required: true,
         },
         userId: {
@@ -232,7 +232,8 @@ export default {
                     resolve();
                 }).then(() => {
                     Nova.request()
-                        .post('/api/purchases', {
+                        .post('/api/orders', {
+                          location_id: this.location.id,
                             payment_method_id: this.paymentMethodId,
                             address: this.address,
                             city: this.city,

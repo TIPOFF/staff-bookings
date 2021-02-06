@@ -22,8 +22,8 @@
             />
 
             <purchase-form
-                v-if="activeStep === 4"
-                :location-slug="location.slug"
+                v-if="activeStep === 4 && location"
+                :location="location"
                 :stripe-key="location.stripe_publishable"
                 :user-id="userId"
                 @completed="nextStep"
