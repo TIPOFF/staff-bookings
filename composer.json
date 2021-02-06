@@ -3,7 +3,12 @@
     "description": "Laravel Package for Staff Bookings in Nova.",
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "tipoff/support": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3"
     },
     "autoload": {
         "psr-4": {
