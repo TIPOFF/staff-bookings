@@ -1,9 +1,11 @@
-.idea
-.php_cs
+**/.DS_Store
+/.idea
+/vendor
+/node_modules
+package-lock.json
 composer.phar
 composer.lock
-coverage
-node_modules
-package-lock.json
-vendor
+.phpunit.result.cache
+.DS_Store
+Thumbs.db
 *.cache
