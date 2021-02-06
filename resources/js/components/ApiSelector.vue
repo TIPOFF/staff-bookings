@@ -19,59 +19,59 @@
 </template>
 
 <script>
-import sortBy from 'lodash.sortby'
+import sortBy from 'lodash.sortby';
 
 export default {
   props: {
     value: {
-      type: [String, Number]
+      type: [String, Number],
     },
     resource: {
       type: String,
-      required: true
+      required: true,
     },
     keyBy: {
-      type: String
+      type: String,
     },
     sortBy: {
-      type: String
+      type: String,
     },
     label: {
-      type: String
-    }
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       items: [],
-      selectedItem: ''
-    }
+      selectedItem: '',
+    };
   },
-  created () {
-    this.selectedItem = this.value
+  created() {
+    this.selectedItem = this.value;
 
-    this.fetchItems()
+    this.fetchItems();
   },
   methods: {
-    fetchItems () {
+    fetchItems() {
       Nova.request().get(`/api/${this.resource}`)
-        .then(response => {
-          this.items = response.data.data
-        })
+        .then((response) => {
+          this.items = response.data.data;
+        });
     },
-    select () {
-      this.$emit('input', this.selectedItem)
-      this.$emit('selected', this.selectedItem)
-    }
+    select() {
+      this.$emit('input', this.selectedItem);
+      this.$emit('selected', this.selectedItem);
+    },
   },
   computed: {
-    sortedItems () {
+    sortedItems() {
       return this.sortBy
-        ? sortBy(this.items, item => item[this.sortBy])
-        : this.items
+        ? sortBy(this.items, (item) => item[this.sortBy])
+        : this.items;
     },
-    labelAttribute () {
-      return this.label ? this.label : 'title'
-    }
-  }
-}
+    labelAttribute() {
+      return this.label ? this.label : 'title';
+    },
+  },
+};
 </script>

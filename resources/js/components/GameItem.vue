@@ -6,7 +6,9 @@
 
             <div class="flex items-center">
                 <button
-                    class="btn btn-sm btn-outline focus:outline-none focus:shadow-outline active:outline-none active:shadow-outline"
+                    class="btn btn-sm btn-outline
+                      focus:outline-none focus:shadow-outline
+                      active:outline-none active:shadow-outline"
                     :disabled="processing"
                     @click="playPrivate = false; show = true;"
                 >
@@ -14,7 +16,9 @@
                 </button>
 
                 <button
-                    class="btn btn-sm btn-outline focus:outline-none focus:shadow-outline active:outline-none active:shadow-outline"
+                    class="btn btn-sm btn-outline
+                      focus:outline-none focus:shadow-outline
+                      active:outline-none active:shadow-outline"
                     @click="playPrivate = true; show = true;"
                 >
                     Private
@@ -58,71 +62,71 @@
 </template>
 
 <script>
-import {required, minValue, integer} from 'vuelidate/lib/validators';
+import { required, minValue, integer } from 'vuelidate/lib/validators';
 
 export default {
-    props: {
-        game: {
-            type: Object,
-            required: true,
-        },
-        locationSlug: {
-            type: String,
-            required: true,
-        },
-        cartId: {
-            type: Number,
-            required: true,
-        },
+  props: {
+    game: {
+      type: Object,
+      required: true,
     },
-    data() {
-        return {
-            playPrivate: false,
-            processing: false,
-            show: false,
-            participantCount: 2,
-        };
+    locationSlug: {
+      type: String,
+      required: true,
     },
-    methods: {
-        select() {
-            this.$v.$touch()
-
-            if (this.$v.$invalid) {
-                this.$toasted.show('Oops. Something went wrong.', {
-                    type: 'error',
-                });
-
-                return;
-            }
-
-            this.processing = true;
-
-            Nova.request()
-                .post('/api/cart-items', {
-                    slot_number: this.game.slot_number,
-                    participants: this.participantCount,
-                    cart_id: this.cartId,
-                    is_private: this.playPrivate,
-                })
-                .then(() => {
-                    this.show = false;
-
-                    this.$emit('selected');
-                })
-                .finally(() => {
-                    this.processing = false;
-                });
-        },
+    cartId: {
+      type: Number,
+      required: true,
     },
-    validations: {
-        playPrivate: {
-            required,
-        },
-        participantCount: {
-            required,
-            integer,
-            minValue: minValue(1),
-        },
+  },
+  data() {
+    return {
+      playPrivate: false,
+      processing: false,
+      show: false,
+      participantCount: 2,
+    };
+  },
+  methods: {
+    select() {
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        this.$toasted.show('Oops. Something went wrong.', {
+          type: 'error',
+        });
+
+        return;
+      }
+
+      this.processing = true;
+
+      Nova.request()
+        .post('/api/cart-items', {
+          slot_number: this.game.slot_number,
+          participants: this.participantCount,
+          cart_id: this.cartId,
+          is_private: this.playPrivate,
+        })
+        .then(() => {
+          this.show = false;
+
+          this.$emit('selected');
+        })
+        .finally(() => {
+          this.processing = false;
+        });
     },
+  },
+  validations: {
+    playPrivate: {
+      required,
+    },
+    participantCount: {
+      required,
+      integer,
+      minValue: minValue(1),
+    },
+  },
 };
 </script>

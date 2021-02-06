@@ -1,4 +1,4 @@
-/* eslint-disable no-undef, global-require */
+/* eslint-disable global-require */
 import Vuelidate from 'vuelidate';
 import VueTheMask from 'vue-the-mask';
 

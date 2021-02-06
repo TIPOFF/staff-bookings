@@ -12,6 +12,7 @@
             <div v-else>
                 <template v-for="cartItem in cartItems">
                     <cart-item
+                        :key="cartItem.id"
                         :cart-item="cartItem"
                         :user-id="userId"
                         @deleted="loadCart"
@@ -68,102 +69,102 @@
 
 <script>
 import moment from 'moment';
-import {required, minLength} from 'vuelidate/lib/validators';
+import { required, minLength } from 'vuelidate/lib/validators';
 import GameItem from './GameItem';
 import CartItem from './CartItem';
 import DeductionCodeForm from './DeductionCodeForm';
 
 export default {
-    components: {
-        GameItem,
-        CartItem,
-        DeductionCodeForm,
+  components: {
+    GameItem,
+    CartItem,
+    DeductionCodeForm,
+  },
+  props: {
+    locationSlug: {
+      type: String,
+      required: true,
     },
-    props: {
-        locationSlug: {
-            type: String,
-            required: true,
-        },
-        userId: {
-            type: Number,
-            required: true,
-        },
+    userId: {
+      type: Number,
+      required: true,
     },
-    data() {
-        return {
-            games: [],
-            loadingGames: false,
-            loadingCartItems: false,
-            cartItems: [],
-            cart: null,
-        };
-    },
-    created() {
-        this.loadGames();
+  },
+  data() {
+    return {
+      games: [],
+      loadingGames: false,
+      loadingCartItems: false,
+      cartItems: [],
+      cart: null,
+    };
+  },
+  created() {
+    this.loadGames();
 
-        this.loadCart();
+    this.loadCart();
 
-        Nova.$on('code-applied', () => {
-            this.loadCart();
+    Nova.$on('code-applied', () => {
+      this.loadCart();
+    });
+  },
+  beforeDestroy() {
+    Nova.$off('code-applied');
+  },
+  methods: {
+    loadGames() {
+      const formattedDate = moment().format('YYYY-MM-DD');
+
+      this.loadingGames = true;
+
+      Nova.request()
+        .get(
+          `/api/availability/${this.locationSlug}?include=room.theme,room.location,rate&filter[hold]=false&initial_date=${formattedDate}&final_date=${formattedDate}`,
+        )
+        .then((response) => {
+          this.games = response.data.data;
+        })
+        .finally(() => {
+          this.loadingGames = false;
         });
     },
-    beforeDestroy() {
-        Nova.$off('code-applied');
+    loadCart() {
+      this.cart = null;
+
+      this.cartItems = [];
+
+      this.loadingCartItems = true;
+
+      Nova.request()
+        .get(`/api/users/${this.userId}?include=cart`)
+        .then((response) => {
+          this.cart = response.data.data.cart.data;
+
+          this.cartItems = this.cart.cartItems.data;
+        })
+        .finally(() => {
+          this.loadingCartItems = false;
+        });
     },
-    methods: {
-        loadGames() {
-            const formattedDate = moment().format('YYYY-MM-DD');
+    submit() {
+      this.$v.$touch();
 
-            this.loadingGames = true;
+      if (this.$v.$invalid) {
+        this.$toasted.show('Please select a game.', {
+          type: 'error',
+        });
 
-            Nova.request()
-                .get(
-                    `/api/availability/${this.locationSlug}?include=room.theme,room.location,rate&filter[hold]=false&initial_date=${formattedDate}&final_date=${formattedDate}`
-                )
-                .then(response => {
-                    this.games = response.data.data;
-                })
-                .finally(() => {
-                    this.loadingGames = false;
-                });
-        },
-        loadCart() {
-            this.cart = null;
+        return;
+      }
 
-            this.cartItems = [];
-
-            this.loadingCartItems = true;
-
-            Nova.request()
-                .get(`/api/users/${this.userId}?include=cart`)
-                .then(response => {
-                  this.cart = response.data.data.cart.data;
-
-                    this.cartItems = this.cart.cartItems.data;
-                })
-                .finally(() => {
-                    this.loadingCartItems = false;
-                });
-        },
-        submit() {
-            this.$v.$touch()
-
-            if (this.$v.$invalid) {
-                this.$toasted.show('Please select a game.', {
-                    type: 'error',
-                });
-
-                return;
-            }
-
-            this.$emit('completed');
-        },
+      this.$emit('completed');
     },
-    validations: {
-        cartItems: {
-            required,
-            minLength: minLength(1)
-        },
-    }
+  },
+  validations: {
+    cartItems: {
+      required,
+      minLength: minLength(1),
+    },
+  },
 };
 </script>

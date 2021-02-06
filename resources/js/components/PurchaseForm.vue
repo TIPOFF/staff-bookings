@@ -166,119 +166,119 @@ import { loadStripe } from '@stripe/stripe-js';
 import { required } from 'vuelidate/lib/validators';
 
 export default {
-    props: {
-        stripeKey: {
-            type: String,
-            required: true,
-        },
-        location: {
-            type: Object,
-            required: true,
-        },
-        userId: {
-            type: Number,
-            required: true,
-        },
+  props: {
+    stripeKey: {
+      type: String,
+      required: true,
     },
-    data() {
-        return {
-            cardHolderName: '',
-            stripe: null,
-            cardElement: null,
-            processing: false,
-            paymentMethodId: '',
-            address: '',
-            city: '',
-            state: '',
-            zip: '',
-            phoneNumber: '',
-        };
+    location: {
+      type: Object,
+      required: true,
     },
-    mounted() {
-        this.attachStripeCard();
+    userId: {
+      type: Number,
+      required: true,
     },
-    methods: {
-        async submit() {
-            this.$v.$touch()
+  },
+  data() {
+    return {
+      cardHolderName: '',
+      stripe: null,
+      cardElement: null,
+      processing: false,
+      paymentMethodId: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      phoneNumber: '',
+    };
+  },
+  mounted() {
+    this.attachStripeCard();
+  },
+  methods: {
+    async submit() {
+      this.$v.$touch();
 
-            if (this.$v.$invalid) {
-                this.$toasted.show('Fill in the user information.', {
-                    type: 'error',
-                });
+      if (this.$v.$invalid) {
+        this.$toasted.show('Fill in the user information.', {
+          type: 'error',
+        });
 
-                return;
-            }
+        return;
+      }
 
-            this.processing = true;
+      this.processing = true;
 
-            const { paymentMethod, error } = await this.stripe.createPaymentMethod(
-                'card', this.cardElement, {
-                    billing_details: {
-                        name: this.cardHolderName,
-                    },
-                },
-            );
-
-            if (error) {
-                this.$toasted.show('Purchase failed.', {
-                    type: 'error',
-                });
-
-                this.processing = false;
-            } else {
-                new Promise(resolve => {
-                    this.paymentMethodId = paymentMethod.id;
-
-                    resolve();
-                }).then(() => {
-                    Nova.request()
-                        .post('/api/orders', {
-                          location_id: this.location.id,
-                            payment_method_id: this.paymentMethodId,
-                            address: this.address,
-                            city: this.city,
-                            state: this.state,
-                            zip: this.zip,
-                            phone_number: this.phoneNumber,
-                            user_id: this.userId,
-                        })
-                        .then(() => {
-                            this.$emit('completed');
-                        })
-                        .finally(() => {
-                            this.processing = false;
-                        });
-                });
-            }
+      const { paymentMethod, error } = await this.stripe.createPaymentMethod(
+        'card', this.cardElement, {
+          billing_details: {
+            name: this.cardHolderName,
+          },
         },
-        async attachStripeCard() {
-            this.stripe = await loadStripe(this.stripeKey);
+      );
 
-            this.cardElement = this.stripe.elements()
-                .create('card');
+      if (error) {
+        this.$toasted.show('Purchase failed.', {
+          type: 'error',
+        });
 
-            this.cardElement.mount(this.$refs.stripeCard);
-        },
+        this.processing = false;
+      } else {
+        new Promise((resolve) => {
+          this.paymentMethodId = paymentMethod.id;
+
+          resolve();
+        }).then(() => {
+          Nova.request()
+            .post('/api/orders', {
+              location_id: this.location.id,
+              payment_method_id: this.paymentMethodId,
+              address: this.address,
+              city: this.city,
+              state: this.state,
+              zip: this.zip,
+              phone_number: this.phoneNumber,
+              user_id: this.userId,
+            })
+            .then(() => {
+              this.$emit('completed');
+            })
+            .finally(() => {
+              this.processing = false;
+            });
+        });
+      }
     },
-    validations: {
-        cardHolderName: {
-            required,
-        },
-        address: {
-            required,
-        },
-        city: {
-            required,
-        },
-        state: {
-            required,
-        },
-        zip: {
-            required,
-        },
-        phoneNumber: {
-            required,
-        },
+    async attachStripeCard() {
+      this.stripe = await loadStripe(this.stripeKey);
+
+      this.cardElement = this.stripe.elements()
+        .create('card');
+
+      this.cardElement.mount(this.$refs.stripeCard);
     },
+  },
+  validations: {
+    cardHolderName: {
+      required,
+    },
+    address: {
+      required,
+    },
+    city: {
+      required,
+    },
+    state: {
+      required,
+    },
+    zip: {
+      required,
+    },
+    phoneNumber: {
+      required,
+    },
+  },
 };
 </script>

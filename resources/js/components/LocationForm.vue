@@ -27,35 +27,35 @@
 </template>
 
 <script>
-import ApiSelector from './ApiSelector';
 import { required } from 'vuelidate/lib/validators';
+import ApiSelector from './ApiSelector';
 
 export default {
-    components: {
-        ApiSelector,
-    },
-    data() {
-        return {
-            selectedLocation: '',
-        };
-    },
-    methods: {
-        submit() {
-          if (this.$v.$invalid) {
-              this.$toasted.show('Please select a location.', {
-                  type: 'error',
-              });
+  components: {
+    ApiSelector,
+  },
+  data() {
+    return {
+      selectedLocation: '',
+    };
+  },
+  methods: {
+    submit() {
+      if (this.$v.$invalid) {
+        this.$toasted.show('Please select a location.', {
+          type: 'error',
+        });
 
-              return;
-          }
+        return;
+      }
 
-          this.$emit('completed', this.selectedLocation);
-        },
+      this.$emit('completed', this.selectedLocation);
     },
-    validations: {
-        selectedLocation: {
-            required,
-        },
+  },
+  validations: {
+    selectedLocation: {
+      required,
     },
+  },
 };
 </script>

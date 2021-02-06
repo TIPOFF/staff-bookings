@@ -89,60 +89,60 @@
 import { required, email } from 'vuelidate/lib/validators';
 
 export default {
-    props: {
-        locationId: {
-            type: Number,
-            required: true,
-        },
+  props: {
+    locationId: {
+      type: Number,
+      required: true,
     },
-    data() {
-        return {
-            name: '',
-            nameLast: '',
-            email: '',
-            processing: false,
-        };
+  },
+  data() {
+    return {
+      name: '',
+      nameLast: '',
+      email: '',
+      processing: false,
+    };
+  },
+  methods: {
+    submit() {
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        this.$toasted.show('We couldn\'t create the user.', {
+          type: 'error',
+        });
+
+        return;
+      }
+
+      this.processing = true;
+
+      Nova.request()
+        .post('/api/users', {
+          name: this.name,
+          name_last: this.nameLast,
+          email: this.email,
+          location_id: this.locationId,
+        })
+        .then((response) => {
+          this.$emit('completed', response.data.data);
+        })
+        .finally(() => {
+          this.processing = false;
+        });
     },
-    methods: {
-        submit() {
-            this.$v.$touch()
-
-            if (this.$v.$invalid) {
-                this.$toasted.show('We couldn\'t create the user.', {
-                    type: 'error',
-                });
-
-                return;
-            }
-
-            this.processing = true;
-
-            Nova.request()
-                .post('/api/users', {
-                    name: this.name,
-                    name_last: this.nameLast,
-                    email: this.email,
-                    location_id: this.locationId,
-                })
-                .then(response => {
-                    this.$emit('completed', response.data.data);
-                })
-                .finally(() => {
-                    this.processing = false;
-                });
-        },
+  },
+  validations: {
+    name: {
+      required,
     },
-    validations: {
-        name: {
-            required,
-        },
-        nameLast: {
-            required,
-        },
-        email: {
-            required,
-            email,
-        },
+    nameLast: {
+      required,
     },
+    email: {
+      required,
+      email,
+    },
+  },
 };
 </script>
