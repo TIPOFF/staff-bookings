@@ -6,6 +6,12 @@
         "php": "^7.4|^8.0",
         "tipoff/support": "^1.0"
     },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3",
+        "spatie/laravel-ray": "^1.9",
+        "vimeo/psalm": "^4.4"
+    },
     "autoload": {
         "psr-4": {
             "Tipoff\\StaffBookings\\": "src/"
@@ -21,6 +27,12 @@
     "config": {
         "sort-packages": true
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
