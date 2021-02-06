@@ -15,5 +15,6 @@
         "vue"
     ],
     "rules": {
+        "import/no-extraneous-dependencies": "warn"
     }
 }
