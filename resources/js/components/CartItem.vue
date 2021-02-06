@@ -5,7 +5,7 @@
     >
         {{ cartItem.slot_number }}
         -
-        {{ cartItem.participants }}
+        {{ cartItem.participants }} participants
         -
         {{ cartItem.is_private ? 'private' : 'public' }}
         -
