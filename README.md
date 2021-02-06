@@ -1,4 +1,4 @@
-# :package_description
+# Nova Tool for Staff to Make Bookings
 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tipoff/staff-bookings.svg?style=flat-square)](https://packagist.org/packages/tipoff/staff-bookings)
