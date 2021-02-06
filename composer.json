@@ -1,19 +1,7 @@
 {
     "name": "tipoff/staff-bookings",
-    "description": "Laravel Package for Staff Bookings in Nova",
-    "keywords": [
-        "tipoff",
-        "staff-bookings"
-    ],
-    "homepage": "https://github.com/tipoff/staff-bookings",
+    "description": "Laravel Package for Staff Bookings in Nova.",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Tipoff",
-            "email": "packages@tipoff.com",
-            "role": "Developer"
-        }
-    ],
     "require": {
         "php": "^7.4|^8.0",
         "tipoff/support": "^1.0"
@@ -24,32 +12,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Tipoff\\StaffBookings\\": "src",
-            "Tipoff\\StaffBookings\\Database\\Factories\\": "database/factories"
+            "Tipoff\\StaffBookings\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tipoff\\StaffBookings\\Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "psalm": "vendor/bin/psalm",
-        "test": "vendor/bin/phpunit --colors=always",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-    },
-    "config": {
-        "sort-packages": true
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Tipoff\\StaffBookings\\StaffBookingsServiceProvider"
-            ],
-            "aliases": {
-                "StaffBookings": "Tipoff\\StaffBookings\\StaffBookingsFacade"
-            }
+                "Tipoff\\StaffBookings\\ToolServiceProvider"
+            ]
         }
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true

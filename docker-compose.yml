@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  lib:
+    image: ambientum/php:7.4-nginx
+    container_name: staff-bookings-tool
+    volumes:
+      - .:/var/www/app
