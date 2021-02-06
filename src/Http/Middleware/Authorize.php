@@ -3,7 +3,6 @@
 namespace Tipoff\StaffBookings\Http\Middleware;
 
 use Laravel\Nova\Nova;
-use Tipoff\StaffBookings\StaffBookings;
 
 class Authorize
 {
