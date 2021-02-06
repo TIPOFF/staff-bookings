@@ -25,7 +25,7 @@ export default {
             type: String,
             required: true,
         },
-        userId: {
+        cartId: {
             type: Number,
             required: true,
         },
@@ -48,7 +48,7 @@ export default {
                 Nova.request()
                     .post(endpoint, {
                       code: this.code,
-                      user_id: this.userId,
+                      cart_id: this.cartId,
                     })
                     .then(response => {
                         this.code = '';

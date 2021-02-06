@@ -70,7 +70,7 @@ export default {
             type: String,
             required: true,
         },
-        userId: {
+        cartId: {
             type: Number,
             required: true,
         },
@@ -101,6 +101,7 @@ export default {
                 .post('/api/cart-items', {
                     slot_number: this.game.slot_number,
                     participants: this.participantCount,
+                    cart_id: this.cartId,
                     is_private: this.playPrivate,
                 })
                 .then(() => {

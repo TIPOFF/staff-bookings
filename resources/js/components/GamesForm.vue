@@ -25,11 +25,14 @@
                     <h4 class="mt-3">Total: {{ cart.total_amount | dollars }}</h4>
                 </div>
 
-                <div class="flex justify-end mt-6">
+                <div
+                  class="flex justify-end mt-6"
+                  v-if="cart"
+                >
                     <div class="w-1/3">
                         <deduction-code-form
                             :location-slug="locationSlug"
-                            :user-id="userId"
+                            :cart-id="cart.id"
                         />
                     </div>
                 </div>
@@ -46,7 +49,7 @@
                     :key="game.id"
                     :location-slug="locationSlug"
                     :game="game"
-                    :user-id="userId"
+                    :cart-id="cart.id"
                     @selected="loadCart"
                 />
             </template>
@@ -100,8 +103,8 @@ export default {
 
         this.loadCart();
 
-        Nova.$on('code-applied', cart => {
-            this.cart = cart;
+        Nova.$on('code-applied', () => {
+            this.loadCart();
         });
     },
     beforeDestroy() {
@@ -132,9 +135,9 @@ export default {
             this.loadingCartItems = true;
 
             Nova.request()
-                .get('/api/carts')
+                .get(`/api/users/${this.userId}?include=cart`)
                 .then(response => {
-                    this.cart = response.data.data;
+                  this.cart = response.data.data.cart.data;
 
                     this.cartItems = this.cart.cartItems.data;
                 })
