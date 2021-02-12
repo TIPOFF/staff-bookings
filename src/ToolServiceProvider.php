@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Tger\Booking\Http\Middleware\Authorize;
+use Tipoff\StaffBookings\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
 {
