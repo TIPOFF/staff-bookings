@@ -6,7 +6,7 @@ use Tipoff\StaffBookings\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Voucher;
 use App\Transformers\CartTransformer;
-use Tger\Booking\Http\Requests\StoreVoucherApplication;
+use Tipoff\StaffBookings\Http\Requests\StoreVoucherApplication;
 
 class VoucherApplicationsController extends Controller
 {

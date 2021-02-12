@@ -6,7 +6,7 @@ use Tipoff\StaffBookings\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\User;
 use Facades\App\UseCases\PurchaseBooking;
-use Tger\Booking\Http\Requests\MakePurchase;
+use Tipoff\StaffBookings\Http\Requests\MakePurchase;
 
 class CheckoutController extends Controller
 {

@@ -6,7 +6,7 @@ use Tipoff\StaffBookings\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\User;
 use App\Transformers\CartTransformer;
-use Tger\Booking\Http\Requests\StoreDiscountApplication;
+use Tipoff\StaffBookings\Http\Requests\StoreDiscountApplication;
 
 class DiscountApplicationsController extends Controller
 {
