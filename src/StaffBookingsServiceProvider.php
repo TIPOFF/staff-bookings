@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tipoff\StaffBookings;
 
-use Tipoff\StaffBookings\Models\StaffBookings;
-use Tipoff\StaffBookings\Policies\StaffBookingsPolicy;
+use Tipoff\StaffBookings\Models\StaffBooking;
+use Tipoff\StaffBookings\Policies\StaffBookingPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
@@ -15,7 +15,7 @@ class ToolServiceProvider extends TipoffServiceProvider
     {
         $package
             ->hasPolicies([
-                StaffBookings::class => StaffBookingsPolicy::class,
+                StaffBookings::class => StaffBookingPolicy::class,
             ])
             ->name('staff-bookings')
             ->hasConfigFile();
