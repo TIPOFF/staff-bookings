@@ -4,11 +4,20 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
-        "tipoff/support": "^1.0.11"
+        "tipoff/checkout": "^2.5",
+        "tipoff/support": "^1.6.5"
+    },
+    "require-dev": {
+        "tipoff/test-support": "^1.2"
     },
     "autoload": {
         "psr-4": {
             "Tipoff\\StaffBookings\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tipoff\\StaffBookings\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -17,6 +26,11 @@
                 "Tipoff\\StaffBookings\\ToolServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
         "sort-packages": true

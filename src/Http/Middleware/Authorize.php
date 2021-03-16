@@ -3,6 +3,7 @@
 namespace Tipoff\StaffBookings\Http\Middleware;
 
 use Laravel\Nova\Nova;
+use Tipoff\StaffBookings\StaffBookings;
 
 class Authorize
 {
@@ -28,6 +29,6 @@ class Authorize
      */
     public function matchesTool($tool)
     {
-        return $tool instanceof Booking;
+        return $tool instanceof StaffBookings;
     }
 }
