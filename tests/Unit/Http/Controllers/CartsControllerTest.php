@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tipoff\StaffBookings\Tests\Unit\Http\Controllers;
 
-
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Checkout\Models\Cart;
@@ -53,7 +52,7 @@ class CartsControllerTest extends TestCase
 
         $response = $this
             ->postJson("nova-vendor/booking/{$user->id}/add-code", [
-                'code' => 'abcd'
+                'code' => 'abcd',
             ])
             ->assertStatus(422);
 
@@ -88,7 +87,7 @@ class CartsControllerTest extends TestCase
 
         $response = $this
             ->postJson("nova-vendor/booking/{$user->id}/add-code", [
-                'code' => 'abcd'
+                'code' => 'abcd',
             ])
             ->assertOk();
 
