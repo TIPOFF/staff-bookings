@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tipoff\StaffBookings;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Tipoff\StaffBookings\Http\Middleware\Authorize;
