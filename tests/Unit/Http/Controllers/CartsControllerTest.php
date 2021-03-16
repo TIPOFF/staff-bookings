@@ -65,7 +65,7 @@ class CartsControllerTest extends TestCase
         $this->logToStderr();
         $service = \Mockery::mock(DiscountInterface::class);
         $service->shouldReceive('findByCode')
-            ->once()
+            ->twice()
             ->with('abcd')
             ->andReturnSelf();
         $service->shouldReceive('applyToCart')->andReturnSelf();

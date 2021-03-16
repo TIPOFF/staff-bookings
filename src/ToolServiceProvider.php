@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Tipoff\StaffBookings;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
 use Tipoff\StaffBookings\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
@@ -26,9 +23,10 @@ class ToolServiceProvider extends ServiceProvider
             $this->routes();
         });
 
+        /*
         Nova::serving(function (ServingNova $event) {
-            //
         });
+        */
     }
 
     /**
@@ -38,6 +36,7 @@ class ToolServiceProvider extends ServiceProvider
      */
     protected function routes()
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         if ($this->app->routesAreCached()) {
             return;
         }
