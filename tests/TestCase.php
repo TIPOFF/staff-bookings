@@ -22,10 +22,6 @@ class TestCase extends BaseTestCase
 {
     protected function getPackageProviders($app)
     {
-        Nova::tools([
-            new StaffBookings(),
-        ]);
-
         return [
             SupportServiceProvider::class,
             AuthorizationServiceProvider::class,
