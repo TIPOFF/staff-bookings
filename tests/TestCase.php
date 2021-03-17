@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Tipoff\StaffBookings\Tests;
 
-use Laravel\Nova\Nova;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Addresses\AddressesServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Checkout\CheckoutServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
-use Tipoff\StaffBookings\StaffBookings;
 use Tipoff\StaffBookings\ToolServiceProvider;
 use Tipoff\Statuses\StatusesServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
