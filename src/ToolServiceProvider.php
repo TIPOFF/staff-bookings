@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Tipoff\StaffBookings;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Events\ServingNova;
+use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Tipoff\StaffBookings\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'booking');
@@ -25,18 +19,15 @@ class ToolServiceProvider extends ServiceProvider
             $this->routes();
         });
 
+        /*
         Nova::serving(function (ServingNova $event) {
-            //
         });
+        */
     }
 
-    /**
-     * Register the tool's routes.
-     *
-     * @return void
-     */
     protected function routes()
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         if ($this->app->routesAreCached()) {
             return;
         }
@@ -46,13 +37,10 @@ class ToolServiceProvider extends ServiceProvider
                 ->group(__DIR__.'/../routes/api.php');
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
-        //
+        Nova::tools([
+            new StaffBookings(),
+        ]);
     }
 }

@@ -18,6 +18,7 @@ class Authorize
     {
         $tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
 
+        /** @psalm-suppress NullableReturnStatement */
         return optional($tool)->authorize($request) ? $next($request) : abort(403);
     }
 
